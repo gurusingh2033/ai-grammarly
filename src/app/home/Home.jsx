@@ -68,7 +68,7 @@ export default function HomeComponent() {
         <div className="input-box">
           <textarea
             {...register("userInput")}
-            placeholder="User's plan text input goes here."
+            placeholder="User's plain text input goes here."
           ></textarea>
         </div>
       </div>

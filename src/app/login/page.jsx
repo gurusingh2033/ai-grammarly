@@ -4,7 +4,8 @@ import { useForm } from "react-hook-form";
 import { setLocalStorageItem } from "../utils/localStorageUtils/setLocalStorageItem";
 import { redirect } from "next/navigation";
 import { ToastContainer, toast } from "react-toastify";
-import { useState } from "react";
+import { useLayoutEffect, useState } from "react";
+import { getLocalStorageItem } from "../utils/localStorageUtils/getLocalStorageItem";
 
 export default function Login() {
   const [isLoading, setIsLoading] = useState(false);
@@ -14,6 +15,11 @@ export default function Login() {
     handleSubmit,
     formState: { errors, isValid },
   } = useForm();
+  const isUserLoggedIn = getLocalStorageItem("isUserLoggedIn");
+
+  if (isUserLoggedIn) {
+    redirect("/");
+  }
 
   const onSubmit = async (data) => {
     try {
@@ -90,7 +96,11 @@ export default function Login() {
             )}
           </div>
 
-          <button  disabled={isLoading} type="submit" className={`login-button ${isLoading ? "disable" :""}`}>
+          <button
+            disabled={isLoading}
+            type="submit"
+            className={`login-button ${isLoading ? "disable" : ""}`}
+          >
             Login
           </button>
         </form>
